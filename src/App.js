@@ -1,5 +1,6 @@
 import React from "react";
 
+const API_URL = 'https://inter-questionss.herokuapp.com'
 
 function App() {
   return (
