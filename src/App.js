@@ -3,7 +3,7 @@ import React, {useState, useEffect} from "react";
 import { Questionaire } from './components'
 
 // eslint-disable-next-line
-const API_URL = 'https://opentdb.com/api.php?amount=50&category=23&difficulty=easy&type=multiple'
+const API_URL = 'https://opentdb.com/api.php?amount=25&category=12&difficulty=easy&type=multiple'
 
 function App() {
   const [questions, setQuestions] = useState([])
@@ -29,7 +29,7 @@ const handleAnswer = (answer) => {
   setCurrentQuestionIndex(newIndex)
 
   if (answer === questions[currentQuestionIndex].correct_answer) {
-    setScore(score + 2)
+    setScore(score + 4)
   }
   //show another question
   if (newIndex >= questions.length) {
