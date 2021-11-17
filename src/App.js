@@ -6,23 +6,32 @@ const API_URL = 'https://opentdb.com/api.php?amount=50&category=23&difficulty=ea
 
 function App() {
   const [questions, setQuestions] = useState([])
+  const [currentQuestion, setCurrentQuestion] = useState(undefined)
 
 useEffect(() => {
   fetch(API_URL)
   .then(response => response.json())
-  .then(data => setQuestions(data.results))
+  .then(data => {
+    setQuestions(data.results)
+    setCurrentQuestion(data.results[0])
+  })
   
   
 }, [])
 
 const handleAnswer = (answer) => {
+  //show another question
 
+  //change score if correct
 }
 
 
   return questions.length > 0 ? (
     <div className="container">
-      <Questionaire data={questions[0]} handleAnswer={handleAnswer}/>
+      {currentQuestion && (
+        <Questionaire data={currentQuestion} handleAnswer={handleAnswer}/>
+      )}
+      
     </div>
   ) : (
     <h1 className="text-white text-3xl font-bold">Loading...</h1>
