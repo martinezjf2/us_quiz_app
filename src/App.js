@@ -10,33 +10,35 @@ useEffect(() => {
   console.log(API_URL)
   fetch(API_URL)
   .then(response => response.json())
-  .then(data => console.log(data.results))
+  .then(data => setQuestions(data.results))
   
   
 }, [])
 
 
-  return (
+  return questions.length > 0 ? (
     <div className="container">
       <div className="bg-white text-blue-800 p-10 rounded-lg shadow-md">
-        <h2 className="text-2xl"> 1. This is a question? kjdcnv di j iodv isnv ojnvo in sv n ov onsv oinvo inos fj j jg jfsgbkjngbjnsf osfg of sfg oimsg oimsfg if oimsg o oimg of oif oimid oih oijgd </h2>
+        <h2 className="text-2xl"> {questions[0].question} </h2>
       </div>
       <div className="grid grid-cols-2 gap-6 mt-6">
         <button className="bg-white rounded shadow p-4 font-semibold text-blue-800">
-          Answer 1
+          {questions[0].correct_answer}
         </button>
         <button className="bg-white rounded shadow p-4 font-semibold text-blue-800">
-          Answer 2
+          {questions[0].incorrect_answers[0]}
         </button>
         <button className="bg-white rounded shadow p-4 font-semibold text-blue-800">
-          Answer 3
+          {questions[0].incorrect_answers[1]}
         </button>
         <button className="bg-white rounded shadow p-4 font-semibold text-blue-800">
-          Answer 4
+          {questions[0].incorrect_answers[2]}
         </button>
         
       </div>
     </div>
+  ) : (
+    <h1 className="text-white text-3xl">Loading...</h1>
   );
 }
 
