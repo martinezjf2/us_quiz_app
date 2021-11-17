@@ -11,18 +11,15 @@ function App() {
   const [score, setScore] = useState(0)
   const [quizEnded, setQuizEnded] = useState(false)
 
-
-
 useEffect(() => {
   fetch(API_URL)
   .then(response => response.json())
   .then(data => {
     setQuestions(data.results)
-    
   })
-  
-  
+
 }, [])
+
 
 const handleAnswer = (answer) => {
   const newIndex = currentQuestionIndex + 1
@@ -31,13 +28,11 @@ const handleAnswer = (answer) => {
   if (answer === questions[currentQuestionIndex].correct_answer) {
     setScore(score + 4)
   }
-  //show another question
+
   if (newIndex >= questions.length) {
     setQuizEnded(true)
   }
-  //change score if correct
 }
-
 
   return quizEnded ? (
     <h1 className="text-3xl text-white font-bold">Your score was {score}</h1>
