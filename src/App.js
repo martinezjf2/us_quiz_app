@@ -1,3 +1,4 @@
+
 import React, {useState, useEffect} from "react";
 import { Questionaire } from './components'
 
@@ -7,6 +8,10 @@ const API_URL = 'https://opentdb.com/api.php?amount=50&category=23&difficulty=ea
 function App() {
   const [questions, setQuestions] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
+  const [score, setScore] = useState(0)
+  const [quizEnded, setQuizEnded] = useState(false)
+
+
 
 useEffect(() => {
   fetch(API_URL)
@@ -20,22 +25,31 @@ useEffect(() => {
 }, [])
 
 const handleAnswer = (answer) => {
-  setCurrentQuestionIndex(currentQuestionIndex + 1)
-  //show another question
+  const newIndex = currentQuestionIndex + 1
+  setCurrentQuestionIndex(newIndex)
 
+  if (answer === questions[currentQuestionIndex].correct_answer) {
+    setScore(score + 2)
+  }
+  //show another question
+  if (newIndex >= questions.length) {
+    setQuizEnded(true)
+  }
   //change score if correct
 }
 
 
-  return questions.length > 0 ? (
+  return quizEnded ? (
+    <h1 className="text-3xl text-white font-bold">Your score was {score}</h1>
+  ) : (
+    questions.length > 0 ? (
     <div className="container">
         <Questionaire data={questions[currentQuestionIndex]} handleAnswer={handleAnswer}/>
-      )
     </div>
   ) : (
     <h1 className="text-white text-3xl font-bold">Loading...</h1>
-  );
-}
+  ));
+  }
 
 export default App;
 
