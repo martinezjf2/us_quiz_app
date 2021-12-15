@@ -13,7 +13,7 @@ function Questionaire({ handleAnswer, data: {question, correct_answer, incorrect
         </div>
         <div className="grid grid-cols-2 gap-6 mt-6">
             {shuffledAnswers.map(answer => (
-            <button key={answer} className={`${correct_answer === answer ? 'bg-blue-300' : 'bg-white'} rounded shadow p-4 font-semibold text-blue-800` } answer={answer} onClick={() => handleAnswer(answer)}>{ReactHtmlParser(answer)}</button>
+            <button key={answer} className={`bg-white rounded shadow p-4 font-semibold text-blue-800` } answer={answer} onClick={() => handleAnswer(answer)}>{ReactHtmlParser(answer)}</button>
             ))}            
         </div>
         </div>   

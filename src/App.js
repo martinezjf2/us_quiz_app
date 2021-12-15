@@ -9,7 +9,7 @@ function App() {
   const [questions, setQuestions] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
-  const [quizEnded, setQuizEnded] = useState(false)
+  
 
 useEffect(() => {
   fetch(API_URL)
@@ -28,22 +28,20 @@ const handleAnswer = (answer) => {
   if (answer === questions[currentQuestionIndex].correct_answer) {
     setScore(score + 4)
   }
-
-  if (newIndex >= questions.length) {
-    setQuizEnded(true)
-  }
 }
 
-  return quizEnded ? (
-    <h1 className="text-3xl text-white font-bold">Your score was {score}</h1>
-  ) : (
-    questions.length > 0 ? (
+  return questions.length > 0 ? (
     <div className="container">
-        <Questionaire data={questions[currentQuestionIndex]} handleAnswer={handleAnswer}/>
+      {currentQuestionIndex >= questions.length ? (
+    <h1 className="text-3xl text-white font-bold">Game Ended! Your score was {score}</h1>
+  ) : (
+    <Questionaire data={questions[currentQuestionIndex]} handleAnswer={handleAnswer}/>
+
+  )}
     </div>
   ) : (
     <h1 className="text-white text-3xl font-bold">Loading...</h1>
-  ));
+  );
   }
 
 export default App;
