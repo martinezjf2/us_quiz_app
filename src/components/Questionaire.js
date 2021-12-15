@@ -7,7 +7,7 @@ function Questionaire({ showAnswers, handleAnswer, data: {question, correct_answ
     const shuffledAnswers = [correct_answer, ...incorrect_answers].sort(() => Math.random() - 0.5)
 
     return (
-        <div>
+        <div className='flex flex-col'>
         <div className="bg-white text-blue-800 p-10 rounded-lg shadow-md" >
         <h2 className="text-2xl" >{ReactHtmlParser(question)}</h2>
         </div>
@@ -22,8 +22,11 @@ function Questionaire({ showAnswers, handleAnswer, data: {question, correct_answ
             <button key={answer} className={`${bgColor} rounded shadow p-4 font-semibold ${textColor}` } answer={answer} onClick={() => handleAnswer(answer)}>{ReactHtmlParser(answer)}</button>
             )})}    
 
-            <button className={'bg-white p-4 font-semibold rounded shadow'}>Next Question</button>        
+                
         </div>
+        
+        <button className={'ml-auto bg-blue-700 text-white p-4 font-semibold rounded shadow mt-6'}>Next Question</button>   
+       
         </div>   
         )
     } 
