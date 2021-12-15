@@ -16,7 +16,15 @@ useEffect(() => {
   fetch(API_URL)
   .then(response => response.json())
   .then(data => {
-    setQuestions(data.results)
+    const questions = data.results.map((question) => 
+    ({
+      ...question,
+      answers: [
+        question.correct_answer,
+        ...question.incorrect_answers,
+      ].sort(() => Math.random() - 0.5),
+    }));
+    setQuestions(questions)
   })
 
 }, [])
@@ -31,12 +39,17 @@ const handleAnswer = (answer) => {
   setShowAnswers(true)
 }
 
+const handleNextQuestion = () => {
+  setShowAnswers(false);
+  setCurrentQuestionIndex(currentQuestionIndex + 1)
+
+}
   return questions.length > 0 ? (
     <div className="container">
       {currentQuestionIndex >= questions.length ? (
     <h1 className="text-3xl text-white font-bold">Game Ended! Your score was {score}</h1>
   ) : (
-    <Questionaire data={questions[currentQuestionIndex]} showAnswers={showAnswers} handleAnswer={handleAnswer}/>
+    <Questionaire data={questions[currentQuestionIndex]} handleNextQuestion={handleNextQuestion} showAnswers={showAnswers} handleAnswer={handleAnswer}/>
 
   )}
     </div>

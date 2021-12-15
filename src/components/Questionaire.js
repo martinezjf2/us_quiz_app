@@ -2,9 +2,9 @@ import React from "react";
 // eslint-disable-next-line
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 
-function Questionaire({ showAnswers, handleAnswer, data: {question, correct_answer, incorrect_answers}}) {
+function Questionaire({ handleNextQuestion, showAnswers, handleAnswer, data: {question, correct_answer, answers}}) {
 
-    const shuffledAnswers = [correct_answer, ...incorrect_answers].sort(() => Math.random() - 0.5)
+   
 
     return (
         <div className='flex flex-col'>
@@ -12,7 +12,7 @@ function Questionaire({ showAnswers, handleAnswer, data: {question, correct_answ
         <h2 className="text-2xl" >{ReactHtmlParser(question)}</h2>
         </div>
         <div className="grid grid-cols-2 gap-6 mt-6">
-            {shuffledAnswers.map(answer => {
+            {answers.map((answer) => {
                 const bgColor = showAnswers ? answer === correct_answer ? 'bg-green-500' : 'bg-red-500' : 'bg-white';
 
                 const textColor = showAnswers ? 'text-white' : 'text-blue-800'
@@ -24,8 +24,10 @@ function Questionaire({ showAnswers, handleAnswer, data: {question, correct_answ
 
                 
         </div>
-        
-        <button className={'ml-auto bg-blue-700 text-white p-4 font-semibold rounded shadow mt-6'}>Next Question</button>   
+        {showAnswers && (
+             <button className={'ml-auto bg-blue-700 text-white p-4 font-semibold rounded shadow mt-6'} onClick={handleNextQuestion} >Next Question</button>   
+        )}
+       
        
         </div>   
         )
