@@ -9,6 +9,7 @@ function App() {
   const [questions, setQuestions] = useState([])
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
+  const [showAnswers, setShowAnswers] = useState(false)
   
 
 useEffect(() => {
@@ -22,12 +23,12 @@ useEffect(() => {
 
 
 const handleAnswer = (answer) => {
-  const newIndex = currentQuestionIndex + 1
-  setCurrentQuestionIndex(newIndex)
-
-  if (answer === questions[currentQuestionIndex].correct_answer) {
+  if (!showAnswers) { 
+    if (answer === questions[currentQuestionIndex].correct_answer) {
     setScore(score + 4)
-  }
+  }}
+
+  setShowAnswers(true)
 }
 
   return questions.length > 0 ? (
@@ -35,7 +36,7 @@ const handleAnswer = (answer) => {
       {currentQuestionIndex >= questions.length ? (
     <h1 className="text-3xl text-white font-bold">Game Ended! Your score was {score}</h1>
   ) : (
-    <Questionaire data={questions[currentQuestionIndex]} handleAnswer={handleAnswer}/>
+    <Questionaire data={questions[currentQuestionIndex]} showAnswers={showAnswers} handleAnswer={handleAnswer}/>
 
   )}
     </div>

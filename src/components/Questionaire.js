@@ -2,7 +2,7 @@ import React from "react";
 // eslint-disable-next-line
 import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser'
 
-function Questionaire({ handleAnswer, data: {question, correct_answer, incorrect_answers}}) {
+function Questionaire({ showAnswers, handleAnswer, data: {question, correct_answer, incorrect_answers}}) {
 
     const shuffledAnswers = [correct_answer, ...incorrect_answers].sort(() => Math.random() - 0.5)
 
@@ -12,9 +12,17 @@ function Questionaire({ handleAnswer, data: {question, correct_answer, incorrect
         <h2 className="text-2xl" >{ReactHtmlParser(question)}</h2>
         </div>
         <div className="grid grid-cols-2 gap-6 mt-6">
-            {shuffledAnswers.map(answer => (
-            <button key={answer} className={`bg-white rounded shadow p-4 font-semibold text-blue-800` } answer={answer} onClick={() => handleAnswer(answer)}>{ReactHtmlParser(answer)}</button>
-            ))}            
+            {shuffledAnswers.map(answer => {
+                const bgColor = showAnswers ? answer === correct_answer ? 'bg-green-500' : 'bg-red-500' : 'bg-white';
+
+                const textColor = showAnswers ? 'text-white' : 'text-blue-800'
+
+                return (
+                    
+            <button key={answer} className={`${bgColor} rounded shadow p-4 font-semibold ${textColor}` } answer={answer} onClick={() => handleAnswer(answer)}>{ReactHtmlParser(answer)}</button>
+            )})}    
+
+            <button className={'bg-white p-4 font-semibold rounded shadow'}>Next Question</button>        
         </div>
         </div>   
         )
